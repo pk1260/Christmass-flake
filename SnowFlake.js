@@ -42,10 +42,13 @@ class SnowFlake {
 
 
     // Create Constructor
-    constructor(horizontal, vertical, fallspeed) {
+    constructor(horizontal, vertical, fallspeed, size, rotate) {
         this._horizontal = horizontal + Construct.offsetTop;
         this._vertical = vertical + Construct.offsetLeft;
-        this._fallspeed = fallspeed;
+        this._fallspeed = fallspeed * size;
+        this._size = size;
+        this._rotate = rotate;
+        this._angle = 0;
         this._snow;
     }
 
@@ -54,6 +57,8 @@ class SnowFlake {
         this._snow.className = 'SnowFlake';
         this._snow.style.top  = this._vertical + 'px';
         this._snow.style.left = this._horizontal + 'px';
+        this._snow.style.height = 3 * this._size + 'em';
+        this._snow.style.width = 3 * this._size + 'em';
         this._snow.innerHTML = this._svg;
         Construct.appendChild(this._snow);
         this.move();
@@ -63,11 +68,13 @@ class SnowFlake {
         this._vertical += this._fallspeed;
         this._snow.style.left = this._horizontal + 'px';
         this._snow.style.top = this._vertical + 'px';
+        this._angle += this._rotate;
+        this._snow.style.transform = "rotate(" + this._angle + "deg)";
     }
 
     move() {
         let bewegen = requestAnimationFrame( () => {
-            if(this._vertical > Construct.offsetHeight + Construct.offsetTop){
+            if(this._vertical > Construct.offsetHeight + Construct.offsetTop - 40){
                 this._vertical = Construct.offsetTop;
                 this._horizontal = (Math.random()*Construct.offsetWidth) + Construct.offsetLeft;
                 this.fall();
@@ -83,8 +90,8 @@ class SnowFlake {
 for(let i=0; i<30; ){
     let number = Math.random() * 4;
     if(number > 1){
-        window['sneeuw'+i] = new SnowFlake(Math.random()*Construct.offsetWidth, 0,number);
-        window['sneeuw'+i].create();
+        window['sneeuw' + i] = new SnowFlake(Math.random()*Construct.offsetWidth, 0, 1.5, number, Math.random() * 2);
+        window['sneeuw' + i].create();
         i++
     }
 }
