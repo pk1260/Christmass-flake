@@ -8,7 +8,6 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: Roboto;
 }
 
@@ -28,8 +27,8 @@ h1 {
 }
 
 .SnowFlake {
-    position: relative;
-    height: 3em;
-    width: 3em;
+    position: absolute;
+    height: 5em;
+    width: 5em;
     fill: var(--Christmass-white);
 }

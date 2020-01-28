@@ -1,7 +1,8 @@
 // Init the snowFlake
-let stuff = document.getElementById('result');
+let Construct = document.getElementById('result');
+
 class SnowFlake {
-    _svg = '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"\n' +
+    _svg = '<svg version="1.1" class="SnowFlake" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"\n' +
         '\t width="35.8px" height="35.8px" viewBox="0 0 35.8 35.8" style="enable-background:new 0 0 35.8 35.8;" xml:space="preserve">\n' +
         '<g>\n' +
         '\t<path d="M33.212,26.16l-3.054-1.764l1.84-1.062c0.238-0.139,0.32-0.441,0.184-0.684c-0.14-0.238-0.445-0.322-0.684-0.183\n' +
@@ -41,23 +42,49 @@ class SnowFlake {
 
 
     // Create Constructor
-    constructor(horizon, vertical, speed) {
-        this._horizon = horizon;
-        this._vertical = vertical;
-        this._speed = speed;
+    constructor(horizontal, vertical, fallspeed) {
+        this._horizontal = horizontal + Construct.offsetTop;
+        this._vertical = vertical + Construct.offsetLeft;
+        this._fallspeed = fallspeed;
+        this._snow;
     }
 
     create() {
-        let snowFlake = document.createElement('div');
-        snowFlake.className = 'snowFlake';
-        snowFlake.style.top  = this._vertical + 'px';
-        snowFlake.style.left = this._horizon + 'px';
-        snowFlake.innerHTML = this._svg;
-        document.getElementById('result').appendChild(snowFlake);
+        this._snow = document.createElement('div');
+        this._snow.className = 'SnowFlake';
+        this._snow.style.top  = this._vertical + 'px';
+        this._snow.style.left = this._horizontal + 'px';
+        this._snow.innerHTML = this._svg;
+        Construct.appendChild(this._snow);
+        this.move();
+    }
+
+    fall() {
+        this._vertical += this._fallspeed;
+        this._snow.style.left = this._horizontal + 'px';
+        this._snow.style.top = this._vertical + 'px';
+    }
+
+    move() {
+        let bewegen = requestAnimationFrame( () => {
+            if(this._vertical > Construct.offsetHeight + Construct.offsetTop){
+                this._vertical = Construct.offsetTop;
+                this._horizontal = (Math.random()*Construct.offsetWidth) + Construct.offsetLeft;
+                this.fall();
+                this.move();
+            } else {
+                this.fall();
+                this.move();
+            }
+        });
     }
 }
-let Snow1 = new SnowFlake(Math.random()*900, Math.random()*300,2);
-Snow1.create();
 
-let Snow2 = new SnowFlake(Math.random()*900, Math.random()*300,2);
-Snow2.create();
+for(let i=0; i<30; ){
+    let number = Math.random() * 4;
+    if(number > 1){
+        window['sneeuw'+i] = new SnowFlake(Math.random()*Construct.offsetWidth, 0,number);
+        window['sneeuw'+i].create();
+        i++
+    }
+}

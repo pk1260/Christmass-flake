@@ -23,8 +23,8 @@
             this._snelh = snelheid;
             this._kleur = kleur;
         }
-        // method maken: creëer een element en plaats deze in de body
-        maken() {
+        // method create: creëer een element en plaats deze in de body
+        create() {
             let auto = document.createElement('div');
             auto.className  = 'auto';
             auto.style.top  = this._vert + 'px';
@@ -33,7 +33,7 @@
             document.body.appendChild(auto);
         }
     }
-    // twee instanties van de class Auto maken
+    // twee instanties van de class Auto create
     let auto1 = new Auto(Math.random()*200, Math.random()*500, 4, 'red');
     auto1.maken();
     let auto2 = new Auto(Math.random()*200, Math.random()*500, 4, 'green');
