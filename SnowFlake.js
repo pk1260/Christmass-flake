@@ -1,4 +1,5 @@
 // Init the snowFlake
+let stuff = document.getElementById('result');
 class SnowFlake {
     _svg = '<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"\n' +
         '\t width="35.8px" height="35.8px" viewBox="0 0 35.8 35.8" style="enable-background:new 0 0 35.8 35.8;" xml:space="preserve">\n' +
@@ -45,4 +46,18 @@ class SnowFlake {
         this._vertical = vertical;
         this._speed = speed;
     }
+
+    create() {
+        let snowFlake = document.createElement('div');
+        snowFlake.className = 'snowFlake';
+        snowFlake.style.top  = this._vertical + 'px';
+        snowFlake.style.left = this._horizon + 'px';
+        snowFlake.innerHTML = this._svg;
+        document.getElementById('result').appendChild(snowFlake);
+    }
 }
+let Snow1 = new SnowFlake(Math.random()*900, Math.random()*300,2);
+Snow1.create();
+
+let Snow2 = new SnowFlake(Math.random()*900, Math.random()*300,2);
+Snow2.create();
