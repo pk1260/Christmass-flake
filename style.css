@@ -1,0 +1,31 @@
+/*------------------  Color Styling  ------------------*/
+:root {
+    --Christmass-red: #c54245;
+    --Christmass-white:  #ffffff;
+}
+
+/*------------------  Main Styling  ------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 10vh 10vw;
+}
+/*------------------  Class Styling  ------------------*/
+#result {
+    height: 70vh;
+    background-color: var(--Christmass-red);
+}
+
+h1 {
+    color: var(--Christmass-white);
+    font-size: 3em ;
+}
+
+.flake {
+    height: 3em;
+    fill: var(--Christmass-white);
+}
